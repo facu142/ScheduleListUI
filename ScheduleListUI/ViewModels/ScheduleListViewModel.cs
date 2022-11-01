@@ -95,9 +95,6 @@ namespace ScheduleListUI.ViewModels
                 });
 
             });
-
-
-
         }
 
         private void GetWeekDaysInfo()
