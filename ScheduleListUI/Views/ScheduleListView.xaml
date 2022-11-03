@@ -63,7 +63,7 @@
                                        Text="{Binding EndDateTime, StringFormat='{0:hh:mm tt}'}"/>
                             </VerticalStackLayout>
 
-                            <Frame Grid.Column="1" Grid.Row="0" BackgroundColor="{Binding BackgroundColor}">
+                            <Frame Grid.Column="1" Grid.Row="0" BackgroundColor="LightBlue">
                                 <VerticalStackLayout Spacing="5">
                                     <Label Text="{Binding Title}" TextColor="White" FontSize="18"/>
                                     <Label Text="{Binding Description}" TextColor="White" FontSize="16"/>
@@ -74,8 +74,11 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <Button Text="Add event" Command="{Binding AddUpdateScheduleCommand}"/>
         </VerticalStackLayout>
 
+        
         <!-- Panel lateral -->
         <StackLayout x:Name="panelleft"
                      HorizontalOptions="Start"
@@ -87,8 +90,6 @@
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                 </Image.GestureRecognizers>
             </Image>
-
-
 
             <CollectionView ItemsSource="{Binding Weekdays}" Margin="0,20,0,0">
                 <CollectionView.ItemTemplate>

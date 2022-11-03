@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ScheduleListUI.Models;
+using ScheduleListUI.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,7 +40,6 @@ namespace ScheduleListUI.ViewModels
                 Description = "Description 1",
                 StartDateTime = DateTime.Now,
                 EndDateTime = DateTime.Now.AddHours(5),
-                BackgroundColor = Color.FromArgb("#68c6da"),
             });
 
             scheduleList.Add(new ScheduleModel
@@ -48,7 +48,6 @@ namespace ScheduleListUI.ViewModels
                 Description = "Description 1",
                 StartDateTime = DateTime.Now.Date.AddDays(1).Add(new TimeSpan(13, 0, 0)),
                 EndDateTime = DateTime.Now.Date.AddDays(1).Add(new TimeSpan(14, 0, 0, 0)),
-                BackgroundColor = Color.FromArgb("#e87a3d"),
             });
 
             scheduleList.Add(new ScheduleModel
@@ -57,7 +56,6 @@ namespace ScheduleListUI.ViewModels
                 Description = "Description 1",
                 StartDateTime = DateTime.Now.AddDays(1).Add(new TimeSpan(15, 0, 0)),
                 EndDateTime = DateTime.Now.AddDays(1).Add(new TimeSpan(16, 0, 0)),
-                BackgroundColor = Color.FromArgb("#9a6ead"),
             });
 
             scheduleList.Add(new ScheduleModel
@@ -66,7 +64,6 @@ namespace ScheduleListUI.ViewModels
                 Description = "Description 1",
                 StartDateTime = DateTime.Now.AddDays(1).Add(new TimeSpan(17, 0, 0)),
                 EndDateTime = DateTime.Now.AddDays(1).Add(new TimeSpan(18, 0, 0)),
-                BackgroundColor = Color.FromArgb("#eaab43"),
             });
 
             _allScheduleList.AddRange(scheduleList);
@@ -138,7 +135,6 @@ namespace ScheduleListUI.ViewModels
             return ' ';
         }
 
-
         [RelayCommand]
         public void WeekDaysSelected(DaysModel item)
         {
@@ -147,6 +143,12 @@ namespace ScheduleListUI.ViewModels
             CurrentDate = item.Date;
 
             BindDataToScheduleList();
+        }
+
+        [RelayCommand]
+        public async void AddUpdateSchedule()
+        {
+            await AppShell.Current.GoToAsync(nameof(AddUpdateScheduleDetail));
         }
 
     }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ScheduleListUI.ViewModels"
+             
+             x:Class="ScheduleListUI.Views.AddUpdateScheduleDetail"
+             Title="Add / Update event"  
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextColor" Value="SlateGray"/>
+            </Style>
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Margin="10" Spacing="1">
+
+        
+        <Label Text="Title"/>
+        <Entry Text="{Binding Title}" Placeholder="Title"/>
+        <BoxView HeightRequest="0.8" Color="Gray"/>
+
+        <Label Text="Description"/>
+        <Entry Placeholder="Description" Text="{Binding Description}"/>
+        <BoxView HeightRequest="0.8" Color="Gray"/>
+
+        <Label Text="Location"/>
+        <Entry Placeholder="Location" Text="{Binding Location}"/>
+        <BoxView HeightRequest="0.8" Color="Gray"/>
+
+
+        <Grid ColumnSpacing="20" RowSpacing="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <VerticalStackLayout Grid.Row="0">
+                <Label Text="Start Time"/>
+                <TimePicker Time="{Binding StartDateTime}" />   
+                <BoxView HeightRequest="0.8" Color="Gray"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                <Label Text="End Time"/>
+                <TimePicker Time="{Binding EndDateTime}" />
+                <BoxView HeightRequest="0.8" Color="Gray"/>
+            </VerticalStackLayout>
+
+        </Grid>
+
+        <Button Margin="1,12,0,0" Text="Save" Command="{Binding AddUpdateEventCommand}"/>
+                    
+    </VerticalStackLayout>
+</ContentPage>

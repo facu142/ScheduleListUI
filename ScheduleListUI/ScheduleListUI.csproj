@@ -64,6 +64,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\AddUpdateScheduleDetail.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ScheduleListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
