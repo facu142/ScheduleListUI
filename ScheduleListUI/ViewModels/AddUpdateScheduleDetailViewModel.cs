@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ScheduleListUI.Models;
 using ScheduleListUI.Services;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,25 @@ using System.Threading.Tasks;
 
 namespace ScheduleListUI.ViewModels
 {
+
+    // Aca es donde recibe por parametro los datos del evento a editar
+    [QueryProperty(nameof(ScheduleDetail), "ScheduleDetail")]
+
     public partial class AddUpdateScheduleDetailViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private ScheduleModel _scheduleDetail = new ScheduleModel();
+
         private readonly IScheduleService _scheduleService;
+
+        [ObservableProperty]
+        private DateTime _currentDate = DateTime.Now;
         public AddUpdateScheduleDetailViewModel(IScheduleService scheduleService)
         {
             _scheduleService = scheduleService;
         }
 
+        /* Propiedades comentadas porque ya estan en ScheduleDetail
         [ObservableProperty]
         private string _title;
 
@@ -31,22 +43,32 @@ namespace ScheduleListUI.ViewModels
 
         [ObservableProperty]
         private string _location;
+         
+         */
 
         [RelayCommand]
         public async void AddUpdateEvent()
         {
-            var response = await _scheduleService.AddSchedule(new Models.ScheduleModel
+            int response = -1;
+            if (ScheduleDetail.Id > 0)
             {
-                Title = _title,
-                StartDateTime = _startDateTime,
-                EndDateTime = _endDateTime,
-                Description = _description,
-                Location = _location,
-            });
+                response = await _scheduleService.UpdateSchedule(ScheduleDetail);
+            }
+            else
+            {
+                response = await _scheduleService.AddSchedule(new Models.ScheduleModel
+                {
+                    Title = ScheduleDetail.Title,
+                    StartDateTime = DateTime.Now,
+                    EndDateTime = ScheduleDetail.EndDateTime,
+                    Description = ScheduleDetail.Description,
+                    Location = ScheduleDetail.Location,
+                });
+            }
 
             if (response > 0)
             {
-                await Shell.Current.DisplayAlert("Record saved", "Record added to schedule table", "OK");
+                await Shell.Current.DisplayAlert("Event Info saved", "Record saved", "OK");
             }
             else
             {

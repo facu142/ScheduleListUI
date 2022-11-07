@@ -4,11 +4,14 @@ namespace ScheduleListUI.Views;
 
 public partial class ScheduleListView : ContentPage
 {
+	private ScheduleListViewModel _viewModel;
+
 	private bool _isPanelTranslated;
-	public ScheduleListView()
+	public ScheduleListView(ScheduleListViewModel viewModel)
 	{
 		InitializeComponent();
-		BindingContext = new ScheduleListViewModel();
+		_viewModel = viewModel;
+        this.BindingContext = viewModel;
 		panelleft.TranslateTo(-80, 0, 150); // No visible
 	}
 
@@ -31,7 +34,13 @@ public partial class ScheduleListView : ContentPage
 			panelleft.TranslateTo(0, 0, 150);
 		}
 		_isPanelTranslated = !_isPanelTranslated;
-
-
     }
+
+
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+		_viewModel.GetScheduleListCommand.Execute(null);
+    }
+
 }

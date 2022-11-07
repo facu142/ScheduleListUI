@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ScheduleListUI.Models;
+using ScheduleListUI.Services;
 using ScheduleListUI.Views;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,10 @@ namespace ScheduleListUI.ViewModels
 {
     public partial class ScheduleListViewModel : ObservableObject
     {
-        public ObservableCollection<DaysModel> Weekdays { get; set; } = new ObservableCollection<DaysModel>();  
+        public ObservableCollection<DaysModel> Weekdays { get; set; } = new ObservableCollection<DaysModel>();
 
         public ObservableCollection<ScheduleModel> ScheduleList { get; set; } = new ObservableCollection<ScheduleModel>();
+
         private List<ScheduleModel> _allScheduleList = new List<ScheduleModel>();
 
         [ObservableProperty]
@@ -26,12 +28,15 @@ namespace ScheduleListUI.ViewModels
         [ObservableProperty]
         private bool _isBusy;
 
-        public ScheduleListViewModel()
+        private readonly IScheduleService _scheduleService;
+
+        public ScheduleListViewModel(IScheduleService scheduleService)
         {
-            AddAllScheduleList();
+            _scheduleService = scheduleService;
+            GetScheduleList();
         }
 
-        private void AddAllScheduleList()
+        /* private void AddAllScheduleList()
         {
             var scheduleList = new List<ScheduleModel>();
             scheduleList.Add(new ScheduleModel
@@ -69,6 +74,25 @@ namespace ScheduleListUI.ViewModels
             _allScheduleList.AddRange(scheduleList);
             BindDataToScheduleList();
         }
+         
+         */
+
+        [RelayCommand]
+        private async void GetScheduleList()
+        {
+            var scheduleList = await _scheduleService.GetScheduleList();
+
+            _allScheduleList.Clear();
+
+            if (scheduleList?.Count > 0)
+            {
+                foreach (var schedule in scheduleList)
+                {
+                    _allScheduleList.Add(schedule);
+                }
+            }
+            BindDataToScheduleList();
+        }
 
 
         public void BindDataToScheduleList()
@@ -99,7 +123,7 @@ namespace ScheduleListUI.ViewModels
             // obtener el dia de inicio de la semana basado en la seleccion de fecha
             DateTime startDayOfWeek = CurrentDate.AddDays((int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - (int)CurrentDate.DayOfWeek);
             Weekdays.Clear();
-            for(int i= 0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 var recordToAdd = new DaysModel
                 {
@@ -151,5 +175,26 @@ namespace ScheduleListUI.ViewModels
             await AppShell.Current.GoToAsync(nameof(AddUpdateScheduleDetail));
         }
 
+        [RelayCommand]
+        public async void DisplayAction(ScheduleModel scheduleModel)
+        {
+            var response = await AppShell.Current.DisplayActionSheet("Select Option", "Ok", null, "Edit", "Delete");
+            if (response == "Edit")
+            {
+                var navParam = new Dictionary<string, object>();
+                navParam.Add("ScheduleDetail", scheduleModel);
+                // Va a la vista de detalle con los datos del evento a editar
+                await AppShell.Current.GoToAsync(nameof(AddUpdateScheduleDetail), navParam);
+            }
+            else if (response == "Delete")
+            {
+                var DelResponse = await _scheduleService.DeleteSchedule(scheduleModel);
+                if(DelResponse > 0)
+                {
+                    GetScheduleList();
+                }
+            }
+
+        }
     }
 }

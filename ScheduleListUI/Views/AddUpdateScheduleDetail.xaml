@@ -4,7 +4,7 @@
              xmlns:viewModels="clr-namespace:ScheduleListUI.ViewModels"
              
              x:Class="ScheduleListUI.Views.AddUpdateScheduleDetail"
-             Title="Add / Update event"  
+             Title="Add / Update event" 
              >
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -20,15 +20,15 @@
 
         
         <Label Text="Title"/>
-        <Entry Text="{Binding Title}" Placeholder="Title"/>
+        <Entry Text="{Binding ScheduleDetail.Title}" Placeholder="Title"/>
         <BoxView HeightRequest="0.8" Color="Gray"/>
 
         <Label Text="Description"/>
-        <Entry Placeholder="Description" Text="{Binding Description}"/>
+        <Entry Placeholder="Description" Text="{Binding ScheduleDetail.Description}"/>
         <BoxView HeightRequest="0.8" Color="Gray"/>
 
         <Label Text="Location"/>
-        <Entry Placeholder="Location" Text="{Binding Location}"/>
+        <Entry Placeholder="Location" Text="{Binding ScheduleDetail.Location}"/>
         <BoxView HeightRequest="0.8" Color="Gray"/>
 
 
@@ -44,13 +44,13 @@
 
             <VerticalStackLayout Grid.Row="0">
                 <Label Text="Start Time"/>
-                <TimePicker Time="{Binding StartDateTime}" />   
+                <TimePicker Time="{Binding ScheduleDetail.StartDateTime, StringFormat='hh:mm tt'}"/>   
                 <BoxView HeightRequest="0.8" Color="Gray"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Row="0" Grid.Column="1">
                 <Label Text="End Time"/>
-                <TimePicker Time="{Binding EndDateTime}" />
+                <TimePicker Time="{Binding ScheduleDetail.EndDateTime}" />
                 <BoxView HeightRequest="0.8" Color="Gray"/>
             </VerticalStackLayout>
 

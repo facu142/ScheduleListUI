@@ -43,42 +43,54 @@
 
             <ActivityIndicator IsRunning="True" IsVisible="{Binding IsBusy}" HeightRequest="30" WidthRequest="30"/>
 
+            <Grid RowDefinitions="*,2*">
+                <CollectionView Margin="0,5,0,0" ItemsSource="{Binding ScheduleList}" Grid.Row="0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:ScheduleModel">
+                            <Grid Margin="0,5,0,5">
+                                <Grid.RowDefinitions >
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-            <CollectionView Margin="0,5,0,0" ItemsSource="{Binding ScheduleList}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:ScheduleModel">
-                        <Grid Margin="0,5,0,5">
-                            <Grid.RowDefinitions >
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <VerticalStackLayout Grid.Column="0" Grid.Row="0">
-                                <Label FontAttributes="Bold" 
+                                <VerticalStackLayout Grid.Column="0" Grid.Row="0">
+                                    <Label FontAttributes="Bold" 
                                        Text="{Binding StartDateTime, StringFormat='{0:hh:mm tt}'}"/>
-                                <Label FontAttributes="Bold" 
+                                    <Label FontAttributes="Bold" 
                                        Text="{Binding EndDateTime, StringFormat='{0:hh:mm tt}'}"/>
-                            </VerticalStackLayout>
-
-                            <Frame Grid.Column="1" Grid.Row="0" BackgroundColor="LightBlue">
-                                <VerticalStackLayout Spacing="5">
-                                    <Label Text="{Binding Title}" TextColor="White" FontSize="18"/>
-                                    <Label Text="{Binding Description}" TextColor="White" FontSize="16"/>
-                                    <Label Text="Location info" TextColor="White" FontSize="14"/>
                                 </VerticalStackLayout>
-                            </Frame>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
 
-            <Button Text="Add event" Command="{Binding AddUpdateScheduleCommand}"/>
+                                <Frame Grid.Column="1" Grid.Row="0" BackgroundColor="DarkOrange">
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label Text="{Binding Title}" TextColor="White" FontSize="18"/>
+                                        <Label Text="{Binding Description}" TextColor="White" FontSize="16"/>
+                                        <Label Text="{Binding Location}" TextColor="White" FontSize="14"/>
+                                    </VerticalStackLayout>
+                                    
+                                    <!-- click y se abre el menu (DisplayActionsheet) -->
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:ScheduleListViewModel}}, Path=DisplayActionCommand}" 
+                                                              CommandParameter="{Binding .}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Button Text="Add event" Command="{Binding AddUpdateScheduleCommand}" Grid.Row="1"/>
+
+
+            </Grid>
+
+            
+
         </VerticalStackLayout>
 
-        
+
         <!-- Panel lateral -->
         <StackLayout x:Name="panelleft"
                      HorizontalOptions="Start"
@@ -115,7 +127,7 @@
 
                             </Border>
 
-                            
+
                             <!-- Triangulo inicial del Dia deleccionado -->
                             <Border IsVisible="{Binding IsSelected}"
                                     StrokeThickness="0"
