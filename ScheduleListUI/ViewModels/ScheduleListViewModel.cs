@@ -24,7 +24,6 @@ namespace ScheduleListUI.ViewModels
         [ObservableProperty]
         private DateTime _currentDate = DateTime.Now;
 
-
         [ObservableProperty]
         private bool _isBusy;
 
@@ -94,14 +93,13 @@ namespace ScheduleListUI.ViewModels
             BindDataToScheduleList();
         }
 
-
         public void BindDataToScheduleList()
         {
             IsBusy = true;
             Task.Run(async () =>
             {
                 await Task.Delay(3);
-                var filterScheduleList = _allScheduleList.Where(schedule => schedule.StartDateTime.Date == CurrentDate.Date).ToList();
+                var filterScheduleList = _allScheduleList.Where(schedule => schedule.StartDate.Date == CurrentDate.Date).ToList();
 
                 App.Current.Dispatcher.Dispatch(() =>
                 {

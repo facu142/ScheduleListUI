@@ -59,8 +59,9 @@ namespace ScheduleListUI.ViewModels
                 response = await _scheduleService.AddSchedule(new Models.ScheduleModel
                 {
                     Title = ScheduleDetail.Title,
-                    StartDateTime = DateTime.Now,
-                    EndDateTime = ScheduleDetail.EndDateTime,
+                    StartDate = ScheduleDetail.StartDate,
+                    StartTime = ScheduleDetail.StartTime,
+                    EndTime = ScheduleDetail.EndTime,
                     Description = ScheduleDetail.Description,
                     Location = ScheduleDetail.Location,
                 });

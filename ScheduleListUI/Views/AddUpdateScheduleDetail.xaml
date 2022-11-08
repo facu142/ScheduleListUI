@@ -36,21 +36,29 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
+
             <VerticalStackLayout Grid.Row="0">
-                <Label Text="Start Time"/>
-                <TimePicker Time="{Binding ScheduleDetail.StartDateTime, StringFormat='hh:mm tt'}"/>   
+                <Label Text="Date"/>
+                <DatePicker MinimumDate="{Binding CurrentDate}"  Date="{Binding ScheduleDetail.StartDate}"/>
                 <BoxView HeightRequest="0.8" Color="Gray"/>
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+            <VerticalStackLayout Grid.Row="1">
+                <Label Text="Start Time"/>
+                <TimePicker Time="{Binding ScheduleDetail.StartTime, StringFormat='hh:mm tt'}"/>   
+                <BoxView HeightRequest="0.8" Color="Gray"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
                 <Label Text="End Time"/>
-                <TimePicker Time="{Binding ScheduleDetail.EndDateTime}" />
+                <TimePicker Time="{Binding ScheduleDetail.EndTime}" />
                 <BoxView HeightRequest="0.8" Color="Gray"/>
             </VerticalStackLayout>
 

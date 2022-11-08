@@ -11,12 +11,13 @@
              >
     <Grid>
         <VerticalStackLayout Padding="10,0,10,0" x:Name="panelRight">
-            <Grid>
+            <Grid ColumnSpacing="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -27,7 +28,7 @@
                     </Image.GestureRecognizers>
                 </Image>
 
-                <HorizontalStackLayout Spacing="10" Grid.Column="1" HorizontalOptions="EndAndExpand">
+                <HorizontalStackLayout Spacing="10" Grid.Column="2" HorizontalOptions="EndAndExpand">
                     <VerticalStackLayout VerticalOptions="Center" >
                         <Label Text="{Binding CurrentDate, StringFormat='{0:dddd}'}"/>
                         <Label Text="{Binding CurrentDate, StringFormat='{0:MM yyyy}'}"/>
@@ -58,9 +59,9 @@
 
                                 <VerticalStackLayout Grid.Column="0" Grid.Row="0">
                                     <Label FontAttributes="Bold" 
-                                       Text="{Binding StartDateTime, StringFormat='{0:hh:mm tt}'}"/>
+                                       Text="{Binding StartTime, StringFormat='{0:hh:mm tt}'}"/>
                                     <Label FontAttributes="Bold" 
-                                       Text="{Binding EndDateTime, StringFormat='{0:hh:mm tt}'}"/>
+                                       Text="{Binding EndTime, StringFormat='{0:hh:mm tt}'}"/>
                                 </VerticalStackLayout>
 
                                 <Frame Grid.Column="1" Grid.Row="0" BackgroundColor="DarkOrange">

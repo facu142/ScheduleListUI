@@ -13,8 +13,11 @@ namespace ScheduleListUI.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
+        public DateTime StartDate { get; set; }
+        public TimeSpan StartTime { get; set; }
+
+        public TimeSpan EndTime { get; set; }
+
         public string Title { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }

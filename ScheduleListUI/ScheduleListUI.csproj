@@ -49,6 +49,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\all_list_black.png" />
+	  <None Remove="Resources\Images\all_list_white.png" />
 	  <None Remove="Resources\Images\dashboard_black.png" />
 	  <None Remove="Resources\Images\dashboard_white.png" />
 	  <None Remove="Resources\Images\setting_white.png" />
