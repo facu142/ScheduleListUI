@@ -23,9 +23,9 @@ namespace ScheduleListUI.Services
         {
             if (_dbConnection == null)
             {
-            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Schedule.db3");
-            _dbConnection = new SQLiteAsyncConnection(dbPath);
-            await _dbConnection.CreateTableAsync<ScheduleModel>();
+                string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Schedule.db3");
+                _dbConnection = new SQLiteAsyncConnection(dbPath);
+                await _dbConnection.CreateTableAsync<ScheduleModel>();
             }
         }
         public Task<int> AddSchedule(ScheduleModel scheduleModel)
@@ -42,7 +42,7 @@ namespace ScheduleListUI.Services
             var scheduleList = await _dbConnection.Table<ScheduleModel>().ToListAsync();
             return scheduleList;
         }
-       
+
         public Task<int> UpdateSchedule(ScheduleModel scheduleModel)
         {
             return _dbConnection.UpdateAsync(scheduleModel);
