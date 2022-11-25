@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Plugin.LocalNotification;
 using ScheduleListUI.Models;
 using ScheduleListUI.Services;
 using System;
@@ -70,6 +71,23 @@ namespace ScheduleListUI.ViewModels
             if (response > 0)
             {
                 await Shell.Current.DisplayAlert("Event Info saved", "Record saved", "OK");
+
+
+                var request = new NotificationRequest
+                {
+                    NotificationId = 1337,
+                    Title = ScheduleDetail.Title,
+                    Description = ScheduleDetail.Description,
+                    BadgeNumber = 42,
+                    Schedule = new NotificationRequestSchedule
+                    {
+                        NotifyTime = DateTime.Now.AddSeconds(5),
+                        NotifyRepeatInterval = TimeSpan.FromDays(1)
+                    },
+                };
+
+                await LocalNotificationCenter.Current.Show(request);
+
             }
             else
             {

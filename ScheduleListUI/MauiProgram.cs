@@ -1,4 +1,5 @@
-﻿using ScheduleListUI.Services;
+﻿using Plugin.LocalNotification;
+using ScheduleListUI.Services;
 using ScheduleListUI.ViewModels;
 using ScheduleListUI.Views;
 
@@ -11,6 +12,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseLocalNotification()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
