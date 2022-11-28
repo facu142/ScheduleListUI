@@ -87,6 +87,7 @@ namespace ScheduleListUI.ViewModels
             {
                 foreach (var schedule in scheduleList)
                 {
+                    //await _scheduleService.DeleteSchedule(schedule);
                     _allScheduleList.Add(schedule);
                 }
             }

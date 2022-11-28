@@ -44,7 +44,7 @@
 
             <ActivityIndicator IsRunning="True" IsVisible="{Binding IsBusy}" HeightRequest="30" WidthRequest="30"/>
 
-            <Grid RowDefinitions="*,2*">
+            <Grid RowDefinitions="580,Auto">
                 <CollectionView Margin="0,5,0,0" ItemsSource="{Binding ScheduleList}" Grid.Row="0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:ScheduleModel">
@@ -83,8 +83,6 @@
                 </CollectionView>
 
                 <Button Text="Add event" Command="{Binding AddUpdateScheduleCommand}" Grid.Row="1"/>
-
-
             </Grid>
 
             

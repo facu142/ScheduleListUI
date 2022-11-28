@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.VisualBasic;
 using Plugin.LocalNotification;
 using ScheduleListUI.Models;
 using ScheduleListUI.Services;
@@ -72,6 +73,13 @@ namespace ScheduleListUI.ViewModels
             {
                 await Shell.Current.DisplayAlert("Event Info saved", "Record saved", "OK");
 
+                DateTime dt = new DateTime(ScheduleDetail.StartDate.Year,
+                    ScheduleDetail.StartDate.Month,
+                    ScheduleDetail.StartDate.Day,
+                    ScheduleDetail.StartTime.Hours,
+                    ScheduleDetail.StartTime.Minutes,
+                    ScheduleDetail.StartTime.Seconds);
+
 
                 var request = new NotificationRequest
                 {
@@ -81,7 +89,7 @@ namespace ScheduleListUI.ViewModels
                     BadgeNumber = 42,
                     Schedule = new NotificationRequestSchedule
                     {
-                        NotifyTime = DateTime.Now.AddSeconds(5),
+                        NotifyTime = dt,
                         NotifyRepeatInterval = TimeSpan.FromDays(1)
                     },
                 };
